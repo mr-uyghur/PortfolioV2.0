@@ -26,22 +26,12 @@ class App extends React.Component {
     .then(users => this.setState({monsters: users}))
   }
 
-  handleIncrement = () => {
-    this.setState({ string: 'Imran' })
-  }
 
   render() {
     return (<div className="App">
-
-      {/* anything written between the component tag are prop children */}
-      {/* the code below return the data in state with map method and it's wrapped in CardList component */}
-      <CardList name = "Ali">
-      {
-        this.state.monsters.map((m) => <h1 key={m.id}>{m.name} </h1>)
-      }
-      </CardList>
-
-    
+      {/*component below is passing the mosters json data with props */}
+      <CardList monsters = {this.state.monsters}/>
+  
     </div>)
   }
 }
