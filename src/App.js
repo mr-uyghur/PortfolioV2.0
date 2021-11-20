@@ -3,14 +3,17 @@ import './App.css';
 import React, { Component } from 'react';
 
 
-class App extends Component {
+class App extends React.Component {
 
-  constructor() {
+  constructor(props) {
     super()
 
-    this.state={
-      str:"Ali"
-    }
+    this.state={string:'Ali'}
+    
+  }
+  
+  handleIncrement = () => {
+    this.setState({string: 'Imran' })
   }
 
   render() {
@@ -18,9 +21,9 @@ class App extends Component {
     <header className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
       <p>
-      {this.state.str}
+      {this.state.string}
       </p>
-      <button
+      <button onClick = {this.handleIncrement}
       >
        click me
       </button>
