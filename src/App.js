@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+
 import './App.css';
 import React,{ Component } from 'react';
 
@@ -12,21 +12,17 @@ class App extends React.Component {
     this.state = {
       //array of monsters with their names
       //add id for unique key, each id value must be unique
-      'monsters': [
-        {
-          "name": "Zombies",
-          "id": "AP78"
-        },
-        {
-          "name": "Vampires",
-          "id": "TXTX"
-        },
-        {
-          "name": "Monsters",
-          "id": "CACA"
-        },
-      ]
+      'monsters': []
     }
+  }
+
+  //this block of code fetch's data from an API endpoint
+  //and sets the state with the json data
+  componentWillMount() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json())
+    //users var gets the json data from response.json
+    .then(users => this.setState({monsters: users}))
   }
 
   handleIncrement = () => {
