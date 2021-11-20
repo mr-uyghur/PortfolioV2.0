@@ -1,6 +1,7 @@
 
 import './App.css';
 import React,{ Component } from 'react';
+import {CardList} from './components/cardlist/card-list.component'
 
 
 class App extends React.Component {
@@ -31,10 +32,16 @@ class App extends React.Component {
 
   render() {
     return (<div className="App">
-      {/* return the data in state with map method */}
+
+      {/* anything written between the component tag are prop children */}
+      {/* the code below return the data in state with map method and it's wrapped in CardList component */}
+      <CardList name = "Ali">
       {
         this.state.monsters.map((m) => <h1 key={m.id}>{m.name} </h1>)
       }
+      </CardList>
+
+    
     </div>)
   }
 }
