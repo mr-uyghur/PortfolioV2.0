@@ -13,7 +13,8 @@ class App extends React.Component {
     this.state = {
       //array of monsters with their names
       //add id for unique key, each id value must be unique
-      'monsters': []
+      'monsters': [],
+      'searchField':''
     }
   }
 
@@ -28,9 +29,17 @@ class App extends React.Component {
 
 
   render() {
+
+    //code below is a filter used for the search field.
+    const {monsters, searchField} = this.state
+    const filterMonsters = monsters.filter(monster =>
+      monster.name.toLowerCase().includes(searchField.toLocaleLowerCase())
+      )
+
     return (<div className="App">
+      <input type = 'string' placeholder = 'search field' onChange = { e  => this.setState({'searchField':e.target.value})  }/>
       {/*component below is passing the mosters json data with props */}
-      <CardList monsters = {this.state.monsters}/>
+      <CardList monsters = {filterMonsters}/>
   
     </div>)
   }
