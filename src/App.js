@@ -2,6 +2,7 @@
 import './App.css';
 import React,{ Component } from 'react';
 import {CardList} from './components/cardlist/card-list.component'
+import {SearchBox} from './components/searchBox/searchBox.component'
 
 
 class App extends React.Component {
@@ -37,7 +38,11 @@ class App extends React.Component {
       )
 
     return (<div className="App">
-      <input type = 'string' placeholder = 'search field' onChange = { e  => this.setState({'searchField':e.target.value})  }/>
+      {/* <input type = 'search' placeholder = 'search field' onChange = { e  => this.setState({'searchField':e.target.value})  }/> */}
+      <SearchBox
+      placeholder = 'search field'
+      handleChange = { e => this.setState({'searchField':e.target.value})}
+      />
       {/*component below is passing the mosters json data with props */}
       <CardList monsters = {filterMonsters}/>
   
