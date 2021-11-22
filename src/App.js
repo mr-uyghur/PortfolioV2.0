@@ -28,6 +28,10 @@ class App extends React.Component {
     .then(users => this.setState({monsters: users}))
   }
 
+  handlechange = e => { 
+    this.setState({ searchField: e.target.value} );
+  };
+
 
   render() {
 
@@ -38,10 +42,11 @@ class App extends React.Component {
       )
 
     return (<div className="App">
+      <h1> Monsters </h1>
       {/* <input type = 'search' placeholder = 'search field' onChange = { e  => this.setState({'searchField':e.target.value})  }/> */}
       <SearchBox
       placeholder = 'search field'
-      handleChange = { e => this.setState({'searchField':e.target.value})}
+      handleChange = { this.handlechange}
       />
       {/*component below is passing the mosters json data with props */}
       <CardList monsters = {filterMonsters}/>
