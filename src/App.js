@@ -1,45 +1,60 @@
-import { useState, useEffect } from 'react';
 
-import CardList from './components/card-list/card-list.component';
-import SearchBox from './components/search-box/search-box.component';
 import './App.css';
+import React,{ Component } from 'react';
+import {CardList} from './components/cardlist/card-list.component'
+import {SearchBox} from './components/searchBox/searchBox.component'
 
-const App = () => {
-  const [searchField, setSearchField] = useState('');
-  const [monsters, setMonsters] = useState([]);
-  const [filteredMonsters, setFilterMonsters] = useState(monsters);
 
-  useEffect(() => {
+class App extends React.Component {
+
+  constructor(props) {
+    super()
+
+    //use an array of objects to hold key and valye paid for data
+    this.state = {
+      //array of monsters with their names
+      //add id for unique key, each id value must be unique
+      'monsters': [],
+      'searchField':''
+    }
+  }
+
+  //this block of code fetch's data from an API endpoint
+  //and sets the state with the json data
+  componentWillMount() {
     fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => response.json())
-      .then((users) => setMonsters(users));
-  }, []);
+    .then(response => response.json())
+    //users var gets the json data from response.json
+    .then(users => this.setState({monsters: users}))
+  }
 
-  useEffect(() => {
-    const newFilteredMonsters = monsters.filter((monster) => {
-      return monster.name.toLocaleLowerCase().includes(searchField);
-    });
-
-    setFilterMonsters(newFilteredMonsters);
-  }, [monsters, searchField]);
-
-  const onSearchChange = (event) => {
-    const searchFieldString = event.target.value.toLocaleLowerCase();
-    setSearchField(searchFieldString);
+  handlechange = e => { 
+    this.setState({ searchField: e.target.value} );
   };
 
-  return (
-    <div className='App'>
-      <h1 className='app-title'>Monsters Rolodex</h1>
 
+  render() {
+
+    //code below is a filter used for the search field.
+    const {monsters, searchField} = this.state
+    const filterMonsters = monsters.filter(monster =>
+      monster.name.toLowerCase().includes(searchField.toLocaleLowerCase())
+      )
+
+    return (<div className="App">
+      <h1> Monsters </h1>
+      {/* <input type = 'search' placeholder = 'search field' onChange = { e  => this.setState({'searchField':e.target.value})  }/> */}
       <SearchBox
-        className='monsters-search-box'
-        onChangeHandler={onSearchChange}
-        placeholder='search monsters'
+      placeholder = 'search field'
+      handleChange = { this.handlechange}
       />
-      <CardList monsters={filteredMonsters} />
-    </div>
-  );
-};
+      {/*component below is passing the mosters json data with props */}
+      <CardList monsters = {filterMonsters}/>
+  
+    </div>)
+  }
+}
+
+
 
 export default App;
