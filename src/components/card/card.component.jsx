@@ -1,13 +1,18 @@
-import React from 'react';
-import './card.styles.css'
+import './card.styles.css';
 
-//functional component: this component is responsible for rendering data passed in from (cardlist component) props  individually 
-export const Card = (props) =>{
-    return(
-        <div className = "card-container">
-            <img alt = "moster" src = {`https://robohash.org/${props.monster.id}?set=set2&size=180x180`} />
-          <h1>  {props.monster.name} </h1>
-          <h3>{props.monster.email}</h3>
-            </div>
-    )
-}
+const Card = ({ monster }) => {
+  const { id, name, email } = monster;
+
+  return (
+    <div className='card-container'>
+      <img
+        alt={`monster ${name}`}
+        src={`https://robohash.org/${id}?set=set2&size=180x180`}
+      />
+      <h2>{name}</h2>
+      <p>{email}</p>
+    </div>
+  );
+};
+
+export default Card;
